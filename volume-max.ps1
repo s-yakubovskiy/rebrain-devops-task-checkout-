@@ -1,10 +1,6 @@
-[int]$Loop = 1
- 
-while ($Loop -eq 30){
- 
 Add-Type -TypeDefinition @'
 using System.Runtime.InteropServices;
- 
+
 [Guid("5CDF2C82-841E-4546-9722-0CF74078229A"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 interface IAudioEndpointVolume {
   // f(), g(), ... are unused COM method slots. Define these if you care
@@ -26,7 +22,7 @@ interface IMMDeviceEnumerator {
   int GetDefaultAudioEndpoint(int dataFlow, int role, out IMMDevice endpoint);
 }
 [ComImport, Guid("BCDE0395-E52F-467C-8E3D-C4579291692E")] class MMDeviceEnumeratorComObject { }
- 
+
 public class Audio {
   static IAudioEndpointVolume Vol() {
     var enumerator = new MMDeviceEnumeratorComObject() as IMMDeviceEnumerator;
@@ -47,9 +43,5 @@ public class Audio {
   }
 }
 '@
- 
-[ audio ]::Mute = $false
-[ audio ]::Volume  = 0.9
- 
-$loop = $loop + 1
-sleep -Seconds 30
+[Audio]::Mute = $false
+[Audio]::Volume = 0.99
